@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Surveyor installation profile.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function surveyor_install() {
+  // Invoke the standard install profile for basic setup. We don't want to be
+  // different than a normal Drupal installation.
+  include_once DRUPAL_ROOT . '/profiles/standard/standard.install';
+  standard_install();
+
+  // Remove the body field from Webform nodes.
+  $instance = field_info_instance('node', 'body', 'webform');
+  field_delete_instance($instance);
+}
